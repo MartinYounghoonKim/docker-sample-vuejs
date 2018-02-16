@@ -11,10 +11,10 @@ app.engine('html', engine);
 
 const route = (() => {
   app.get('/', (req, res) => {
-    res.render('index.html');
+    res.render('dist/index.html');
   })
 })();
 
-let server = app.use(express.static('public')).listen(port, () => {
+let server = app.use(express.static('dist')).listen(port, () => {
   console.log(`Express server has started on port:${port}`);
 });
