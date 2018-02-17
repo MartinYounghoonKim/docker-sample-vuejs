@@ -1,12 +1,13 @@
 version: '2'
 services:
     frontend:
-        hostname: local-frontend
+        hostname: docker-vue-sample
         working_dir: /usr/src/app
         build:
             context: ./
         ports:
-            - "3000:3000"
+            - "4000:4000"
         restart: always
         volumes:
           - "./:/usr/src/app"
+
