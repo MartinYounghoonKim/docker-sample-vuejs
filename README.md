@@ -1,6 +1,7 @@
 # docker-sample-vuejs
+[Reference with blog](http://blog.martinwork.co.kr/backend/2018/02/16/setting-docker-volume-with-webpack.html)
 
-> A Vue.js project
+> Docker sample repository with VueJS and Express.
 
 ## Build Setup
 
@@ -16,6 +17,13 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
-```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# start express server
+npm run server
+
+# docker image build
+docker-compose build --no-cache
+
+# docker container start
+docker-compose up
+```
