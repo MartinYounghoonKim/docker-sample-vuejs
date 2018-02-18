@@ -16,7 +16,9 @@ app.engine('html', engine);
 
 const route = (() => {
   app.get('/', (req, res) => {
-    res.render('dist/index.html');
+    res.render('index.html', {
+      build: process.env.NODE_ENV !== 'production' ? null : '/dist'
+    });
   })
 })();
 
