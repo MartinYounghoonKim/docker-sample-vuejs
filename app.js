@@ -4,8 +4,7 @@ const port = 4000;
 const engine = require('ejs-locals');
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+const hotMiddleware = require('./build/webpack-dev.server.config');
 const webpackDevConfig = require('./build/webpack.base.conf.js');
 console.log(webpackDevConfig);
 const compiler = webpack(webpackDevConfig);
@@ -22,10 +21,7 @@ const route = (() => {
 })();
 
 if(process.env.NODE_ENV !== 'production') {
-  app.use(webpackDevMiddleware(compiler, {
-    noInfo: true
-  }));
-  app.use(webpackHotMiddleware(compiler));
+  app.use(hotMiddleware);
 }
 
 let server = app.use(express.static('dist')).listen(port, () => {
