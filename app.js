@@ -3,8 +3,11 @@ const http = require('http');
 const engine = require('ejs-locals');
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
-const hotMiddleware = require('./build/webpack-dev.server.config');
+const config = require('./build/webpack-dev.server.config');
 const webpackDevConfig = require('./build/webpack.base.conf.js');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
 const port = 4000;
 const compiler = webpack(webpackDevConfig);
 
@@ -16,19 +19,41 @@ app.set('views', __dirname);
 app.set('view engine', 'ejs');
 app.engine('html', engine);
 
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  publicPath: 'http://localhost:4000'
+}));
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log
+}))
+
 const route = (() => {
   app.get('/', (req, res) => {
-    res.render('index.html', {
-      build: process.env.NODE_ENV !== 'production' ? null : '/dist'
-    });
+    console.log('정보', process.env.NODE_ENV);
+    res.render('index.html')
+    // if(process.env.NODE_ENV !== 'production') {
+    //   res.render('/dist/index.html')
+    // } else {
+    //   res.render('/index.html')
+    // }
   })
 })();
 
 if(process.env.NODE_ENV !== 'production') {
-  app.use(hotMiddleware);
+  app.use(config);
 }
 app.use(express.static('dist'));
 
 server.listen(port, () => {
   console.log(`Express server has started on port:${port}`);
 });
+// app.use(express.static('dist'))
+// const route = (() => {
+//   app.get('/', (req, res) => {
+//     res.render('index.html');
+//   })
+// })();
+//
+// let server = app.listen(port, () => {
+//   console.log(`Express server has started on port:${port}`);
+// });
