@@ -47,13 +47,17 @@ app.use(express.static('dist'));
 server.listen(port, () => {
   console.log(`Express server has started on port:${port}`);
 });
-// app.use(express.static('dist'))
-// const route = (() => {
-//   app.get('/', (req, res) => {
-//     res.render('index.html');
-//   })
-// })();
-//
-// let server = app.listen(port, () => {
-//   console.log(`Express server has started on port:${port}`);
-// });
+/*
+  // testing webpack dev server's code
+  app.use(express.static('dist'))
+  const route = (() => {
+    app.get('/', (req, res) => {
+      res.render('index.html');
+    })
+  })();
+
+  let server = app.listen(port, () => {
+    console.log(`Express server has started on port:${port}`);
+  });
+
+*/
