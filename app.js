@@ -2,14 +2,8 @@ const express = require('express');
 const http = require('http');
 const engine = require('ejs-locals');
 const bodyParser = require('body-parser');
-const webpack = require('webpack');
-const config = require('./build/webpack-dev.server.config');
-const webpackDevConfig = require('./build/webpack.base.conf.js');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const port = 4000;
-const compiler = webpack(webpackDevConfig);
 
 const app = express();
 const server = http.createServer(app);
@@ -19,13 +13,6 @@ app.set('views', __dirname);
 app.set('view engine', 'ejs');
 app.engine('html', engine);
 
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: 'http://localhost:4000'
-}));
-app.use(webpackHotMiddleware(compiler, {
-  log: console.log
-}))
 
 const route = (() => {
   app.get('/', (req, res) => {
@@ -40,6 +27,20 @@ const route = (() => {
 })();
 
 if(process.env.NODE_ENV !== 'production') {
+  const webpack = require('webpack');
+  const config = require('./build/webpack-dev.server.config');
+  const webpackDevConfig = require('./build/webpack.base.conf.js');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const compiler = webpack(webpackDevConfig);
+
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: 'http://localhost:4000'
+  }));
+  app.use(webpackHotMiddleware(compiler, {
+    log: console.log
+  }))
   app.use(config);
 }
 app.use(express.static('dist'));
