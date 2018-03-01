@@ -27,3 +27,7 @@ docker-compose build --no-cache
 # docker container start
 docker-compose up
 ```
+
+### Reference
+- [http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup](http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup)
+- [https://medium.com/@andyccs/webpack-and-docker-for-development-and-deployment-ae0e73243db4](https://medium.com/@andyccs/webpack-and-docker-for-development-and-deployment-ae0e73243db4)
