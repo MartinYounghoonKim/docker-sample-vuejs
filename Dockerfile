@@ -3,10 +3,13 @@ FROM node:carbon
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
-ADD package.json /usr/src/app/package.json
+COPY package*.json ./
+
 RUN npm install nodemon -g
 
 RUN npm install
 EXPOSE 4000
 
-CMD npm run server
+COPY . .
+
+CMD npm run server:dev
